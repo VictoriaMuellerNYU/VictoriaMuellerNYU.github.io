@@ -4,129 +4,375 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Victoria Mueller</title>
-<meta name="description" content="Victoria Mueller — Biomedical Engineering, NYU. Robotics and computational psychiatry.">
+<meta name="description" content="Victoria Mueller — PhD candidate in Biomedical Engineering at NYU. Computational psychiatry, machine learning, and multimodal sensing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
   :root {
     --purple: #57068c;
-    --purple-light: #f3ebf9;
-    --text: #1d1d1f;
-    --muted: #5f5f66;
-    --line: #e6e1ea;
+    --purple-dark: #330662;
+    --purple-soft: #f4edf9;
+    --purple-line: #e3d4ef;
+    --text: #1f1d24;
+    --muted: #5f5b68;
+    --line: #ece8f0;
     --bg: #ffffff;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font: 16.5px/1.65 var(--sans);
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-  header { border-top: 6px solid var(--purple); padding: 56px 0 32px; }
-  h1 { margin: 0; font-size: 2.4rem; line-height: 1.15; color: var(--purple); letter-spacing: -0.01em; }
-  .tagline { margin: 8px 0 0; font-size: 1.1rem; color: var(--muted); }
-  nav { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 20px; }
-  nav a { color: var(--purple); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
-  nav a:hover { text-decoration: underline; }
-  section { padding: 32px 0; border-top: 1px solid var(--line); }
-  h2 { margin: 0 0 16px; font-size: 1.3rem; color: var(--purple); }
-  p { margin: 0 0 12px; }
+  a { color: var(--purple); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+  .brand { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--purple); text-decoration: none; white-space: nowrap; }
+  .topbar nav { display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; }
+  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; white-space: nowrap; }
+  .topbar nav a:hover { color: var(--purple); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(160deg, var(--purple-soft) 0%, #ffffff 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .wrap { display: flex; align-items: center; gap: 40px; padding-top: 64px; padding-bottom: 56px; }
+  .photo {
+    flex: 0 0 176px; width: 176px; height: 176px; border-radius: 50%;
+    overflow: hidden; position: relative;
+    background: linear-gradient(135deg, var(--purple) 0%, #8a3fc0 100%);
+    box-shadow: 0 0 0 6px #fff, 0 10px 30px rgba(87, 6, 140, .18);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo span { color: #fff; font-family: var(--serif); font-size: 3.4rem; font-weight: 600; letter-spacing: .02em; }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); }
+  h1 { margin: 0; font-family: var(--serif); font-size: 2.9rem; line-height: 1.1; color: var(--purple-dark); }
+  .lede { margin: 14px 0 0; font-size: 1.12rem; color: var(--muted); max-width: 34em; }
+  .links { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 15px; border-radius: 999px;
+    font-size: .9rem; font-weight: 500; text-decoration: none;
+    border: 1px solid var(--purple-line); background: #fff; color: var(--purple);
+    transition: background .15s, border-color .15s;
+  }
+  .btn:hover { background: var(--purple-soft); border-color: var(--purple); }
+  .btn.primary { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .btn.primary:hover { background: var(--purple-dark); }
+  .btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+
+  /* Sections */
+  section { padding: 52px 0 8px; scroll-margin-top: 64px; }
+  h2 {
+    margin: 0 0 22px; font-family: var(--serif); font-size: 1.65rem; color: var(--purple-dark);
+    display: flex; align-items: center; gap: 14px;
+  }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  p { margin: 0 0 14px; }
+  .about p { font-size: 1.04rem; }
+
+  /* Research */
+  .research { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 680px) { .research { grid-template-columns: 1fr 1fr; } }
+  .r-item { padding: 18px 20px; border-radius: 12px; background: var(--purple-soft); }
+  .r-item h3 { margin: 0 0 6px; font-size: 1rem; color: var(--purple-dark); }
+  .r-item p { margin: 0; font-size: .93rem; color: var(--muted); }
+
+  /* Publications */
+  .featured {
+    position: relative; padding: 24px 24px 22px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--purple) 0%, #6f1fa8 100%); color: #fff;
+    margin-bottom: 26px;
+  }
+  .featured .tag {
+    display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    background: rgba(255,255,255,.18); padding: 4px 10px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .featured h3 { margin: 0 0 8px; font-family: var(--serif); font-size: 1.3rem; line-height: 1.3; }
+  .featured p { margin: 0; color: rgba(255,255,255,.85); font-size: .95rem; }
+  .featured .venue { margin-top: 12px; font-weight: 600; color: #fff; }
+  .pubs { list-style: none; margin: 0; padding: 0; }
+  .pubs li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .pubs li:last-child { border-bottom: 0; }
+  .pubs .title { font-weight: 600; color: var(--text); text-decoration: none; }
+  a.title:hover { color: var(--purple); text-decoration: underline; }
+  .pubs .meta { display: block; font-size: .88rem; color: var(--muted); margin-top: 2px; }
+  .pubs .meta b { color: var(--purple); font-weight: 600; }
+  .me { text-decoration: underline; text-underline-offset: 2px; }
+  .more { margin-top: 14px; font-size: .92rem; }
+
+  /* Robotics */
+  .note { color: var(--muted); margin-bottom: 20px; }
   .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
-  @media (min-width: 640px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 680px) { .cards { grid-template-columns: repeat(3, 1fr); } }
   .card {
-    border: 1px solid var(--line);
-    border-top: 4px solid var(--purple);
-    border-radius: 8px;
-    padding: 18px;
-    background: #fff;
+    border: 1px solid var(--line); border-radius: 12px; padding: 20px;
+    background: #fff; transition: box-shadow .2s, transform .2s;
   }
-  .card h3 { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.3; }
-  .card p { margin: 0; font-size: 0.93rem; color: var(--muted); }
-  .card .course { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--purple); font-weight: 600; }
-  .skills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .skills li {
-    background: var(--purple-light);
-    color: var(--purple);
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 500;
+  .card:hover { box-shadow: 0 8px 24px rgba(87, 6, 140, .10); transform: translateY(-2px); }
+  .card .num { font-family: var(--serif); font-size: .9rem; font-weight: 700; color: var(--purple); }
+  .card h3 { margin: 4px 0 8px; font-size: 1.02rem; line-height: 1.3; }
+  .card p { margin: 0 0 6px; font-size: .9rem; color: var(--muted); }
+
+  /* Skills */
+  .skill-group { margin-bottom: 18px; }
+  .skill-group h3 { margin: 0 0 8px; font-size: .82rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { background: var(--purple-soft); color: var(--purple-dark); padding: 5px 12px; border-radius: 999px; font-size: .88rem; }
+
+  /* Awards */
+  .awards { list-style: none; padding: 0; margin: 0; }
+  .awards li { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .awards li:last-child { border-bottom: 0; }
+  .awards .yr { flex: 0 0 44px; color: var(--purple); font-weight: 600; font-size: .92rem; }
+
+  /* Contact */
+  .contact-box {
+    margin-top: 4px; padding: 28px; border-radius: 14px; background: var(--purple-soft); text-align: center;
   }
-  .contact { list-style: none; padding: 0; margin: 0; }
-  .contact li { margin-bottom: 6px; }
-  .contact a { color: var(--purple); }
-  .todo { color: var(--muted); font-style: italic; }
-  footer { padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
-  @media (max-width: 480px) {
-    header { padding-top: 40px; }
-    h1 { font-size: 2rem; }
+  .contact-box p { color: var(--muted); }
+  .contact-box .links { justify-content: center; }
+
+  footer { margin-top: 56px; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; text-align: center; }
+
+  @media (max-width: 640px) {
+    .hero .wrap { flex-direction: column; align-items: flex-start; gap: 24px; padding-top: 40px; padding-bottom: 40px; }
+    .photo { flex-basis: 128px; width: 128px; height: 128px; }
+    .photo span { font-size: 2.5rem; }
+    h1 { font-size: 2.2rem; }
+    .topbar nav { gap: 14px; }
+    .brand { display: none; }
+    .featured { padding: 20px; }
   }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Victoria Mueller</h1>
-      <p class="tagline">Biomedical Engineering · NYU<br>Interested in robotics and computational psychiatry</p>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top">Victoria Mueller</a>
       <nav>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#robotics">Robotics</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <section id="about">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div class="photo">
+        <span aria-hidden="true">VM</span>
+        <!-- Put your photo in this folder as photo.jpg and it appears here automatically -->
+        <img src="photo.jpg" alt="Portrait of Victoria Mueller" onerror="this.remove()">
+      </div>
+      <div>
+        <p class="eyebrow">PhD Candidate · Biomedical Engineering · NYU</p>
+        <h1>Victoria Mueller</h1>
+        <p class="lede">I build machine-learning and LLM-based systems that read affective state from face, speech, gaze, movement and physiology, toward earlier detection of mental-health risk.</p>
+        <div class="links">
+          <a class="btn primary" href="mailto:muellv01@nyu.edu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7.4V17h16V7.4l-8 4.8zM5.2 7 12 11l6.8-4H5.2z"/></svg>
+            Email
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/victoria-Mueller-114929235/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4v11H3v-11zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6v5.4h-4v-4.8c0-1.2 0-2.6-1.6-2.6s-1.9 1.2-1.9 2.5v4.9h-4v-11z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="https://scholar.google.com/citations?user=6Rv_WroAAAAJ" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6.6 9.9V17c0 1.7 3 4 6.6 4s6.6-2.3 6.6-4v-4.1L12 16.5l-6.6-3.6z"/></svg>
+            Google Scholar
+          </a>
+          <a class="btn" href="https://github.com/VictoriaMuellerNYU" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section id="about" class="about">
       <h2>About</h2>
-      <p>I am a Biomedical Engineering student at NYU, interested in robotics and computational psychiatry. In BE-GY 6353, Intelligent Healthcare Systems and Technologies, I study how robots assist in cardiac and neurovascular catheter procedures. My coursework covers the parts these robots are built from: IMU sensors, DC motors, encoders and PID control. In lab, I connect real sensors and check what they report against the physics behind them.</p>
+      <p>I'm a PhD candidate in Biomedical Engineering at NYU Tandon, advised by Dr. Katharina Schultebraucks at the NYU Grossman School of Medicine, Department of Psychiatry. My research sits in computational psychiatry: I design human-subjects studies and build models that turn multimodal behavioral and physiological time series into signals of stress, distress and mental-health risk.</p>
+      <p>Before NYU, I studied Medical Engineering at FAU Erlangen-Nuremberg (B.Sc. and M.Sc.), spent an Erasmus+ semester at the Technion in Haifa, and worked on SPECT imaging research at Siemens Healthineers. This semester I'm also taking a course on robotics in healthcare, from catheter robots to sensors, motors and control.</p>
+      <p>Outside the lab I play competitive tennis (former team captain and coach), and I'm interested in philosophy, effective philanthropy and meditation.</p>
     </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
+    <section id="research">
+      <h2>Research</h2>
+      <div class="research">
+        <div class="r-item">
+          <h3>LLMs for PTSD risk prediction</h3>
+          <p>PREVIA, a multi-LLM framework that predicts early PTSD risk from patients' spoken trauma narratives in the emergency department.</p>
+        </div>
+        <div class="r-item">
+          <h3>Detecting acute distress in video</h3>
+          <p>Multimodal behavioral time series, anomaly detection and generative AI to find moments of acute emotional distress in real-world ED recordings.</p>
+        </div>
+        <div class="r-item">
+          <h3>Physiology meets behavior</h3>
+          <p>ECG, EDA and respiration recording in two NIH-funded studies, linking physiological stress responses to face, voice, movement and gaze.</p>
+        </div>
+        <div class="r-item">
+          <h3>Passive sensing &amp; suicide risk</h3>
+          <p>Modeling suicidal ideation from passive-sensing time-series data in a post-psychiatric-discharge cohort, with clinical partners.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+      <div class="featured">
+        <span class="tag">Featured · First author</span>
+        <h3>PREVIA: A Clinically-Informed Multi-Model LLM Framework for Early PTSD Risk Prediction from ED Trauma Narratives</h3>
+        <p>Mueller V., [...], Oermann E.K., Wall S.P., Schultebraucks K.</p>
+        <p class="venue">Nature Communications · in press, 2026</p>
+      </div>
+      <ul class="pubs">
+        <li>
+          <span class="title">Diagnostic Accuracy of LLMs and 2,114 Clinicians on a Multilingual ICD-11 Psychiatric Benchmark</span>
+          <span class="meta"><span class="me">Mueller V.</span>, Reed G.M., De Choudhury M., Keeley J.W., Cho K., Schultebraucks K., Malgaroli M. · <b>The Lancet Digital Health</b>, under review (2026)</span>
+        </li>
+        <li>
+          <a class="title" href="https://www.jmir.org/2026/1/e87049" target="_blank" rel="noopener">Detection of Microbehavior Intervals for Predicting Mental Health: Clinically Relevant and Advanced Multimodal Temporal Analysis</a>
+          <span class="meta">Gershov S., [...], <span class="me">Mueller V.</span>, [...], Wall S.P., Schultebraucks K. · <b>J Med Internet Res</b> (2026)</span>
+        </li>
+        <li>
+          <span class="title">Bouncing back from stress: objective markers of expressive flexibility and resilience in emergency healthcare workers using computer vision</span>
+          <span class="meta">Hilberdink C., Zhao Y., [...], <span class="me">Mueller V.</span>, [...], Schultebraucks K. · <b>NPP—Digital Psychiatry and Neuroscience</b> (2026)</span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1016/j.psyneuen.2025.107560" target="_blank" rel="noopener">Multimodal stress assessment: Connecting task-related changes in self-reported stress, salivary biomarkers, heart rate, and facial expressions</a>
+          <span class="meta">Ringgold V., [...], <span class="me">Mueller V.</span>, [...], Shields G.S., Rohleder N. · <b>Psychoneuroendocrinology</b> 180 (2025)</span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1038/s41598-024-59043-1" target="_blank" rel="noopener">Machine learning-based detection of acute psychosocial stress from body posture and movements</a>
+          <span class="meta">Richer R., [...], <span class="me">Mueller V.</span>, [...], Eskofier B., Rohleder N. · <b>Scientific Reports</b> 14, 8251 (2024)</span>
+        </li>
+        <li>
+          <a class="title" href="https://ieeexplore.ieee.org/abstract/document/9926835" target="_blank" rel="noopener">Stroop Competition: A Social-Evaluative Stroop Test for Acute Stress Induction</a>
+          <span class="meta"><span class="me">Mueller V.</span>, Richer R., [...], Eskofier B., Rohleder N. · <b>IEEE-EMBS BHI</b> (2022)</span>
+        </li>
+        <li>
+          <a class="title" href="https://doi.org/10.1145/3530796" target="_blank" rel="noopener">Eye Tracking-Based Stress Classification of Athletes in Virtual Reality</a>
+          <span class="meta">Stoeve M., [...], <span class="me">Mueller V.</span>, [...], Eskofier B. · <b>Proc. ACM Comput. Graph. Interact. Tech.</b> 5(2) (2022)</span>
+        </li>
+      </ul>
+      <p class="more">Full list on <a href="https://scholar.google.com/citations?user=6Rv_WroAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.</p>
+    </section>
+
+    <section id="robotics">
+      <h2>Currently: Robotics</h2>
+      <p class="note">This semester I'm taking BE-GY 6353, Intelligent Healthcare Systems and Technologies, a course on robots for cardiac and neurovascular catheter procedures. Selected coursework:</p>
       <div class="cards">
         <article class="card">
+          <span class="num">01</span>
           <h3>IMU Orientation Lab</h3>
           <p>Connected an IM948 IMU over USB and measured roll, pitch and yaw with the accelerometer and gyroscope.</p>
           <p>Identified gimbal lock near 90° pitch and explained why heading needs a magnetometer.</p>
-          <span class="course">BE-GY 6353 · Lab 1</span>
         </article>
         <article class="card">
+          <span class="num">02</span>
           <h3>Cardiac Catheter Procedures</h3>
           <p>Compared PCI, TAVR, TMVR and AF ablation by clinical target, access route and device.</p>
           <p>Named the main technical challenge of each and the degrees of freedom a robot must control.</p>
-          <span class="course">BE-GY 6353 · Homework 1</span>
         </article>
         <article class="card">
+          <span class="num">03</span>
           <h3>Neurovascular Robot Actuation</h3>
           <p>Calculated roller speeds, gear ratios and DC motor torque for a catheter-driving robot.</p>
-          <p>Set a 30 mA current limit to keep catheter force below 0.30 N, and explained its limits.</p>
-          <span class="course">BE-GY 6353 · Homework 2</span>
+          <p>Set a 30 mA current limit to keep catheter force at or below 0.30 N, and explained its limits.</p>
         </article>
       </div>
     </section>
 
     <section id="skills">
       <h2>Skills</h2>
-      <ul class="skills">
-        <li>IMU sensors (accelerometer, gyroscope, magnetometer)</li>
-        <li>Euler angles and quaternions</li>
-        <li>DC motors and torque calculations</li>
-        <li>Encoders and Gray code</li>
-        <li>PID control</li>
-        <li>Cardiac and neurovascular catheter robotics</li>
-        <li>Lab reports and technical writing</li>
+      <div class="skill-group">
+        <h3>Machine learning &amp; AI</h3>
+        <ul class="chips">
+          <li>Deep learning (PyTorch, TensorFlow)</li><li>scikit-learn</li><li>LLM systems &amp; generative AI</li>
+          <li>Anomaly detection</li><li>NLP</li><li>Statistical modeling</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Time series &amp; multimodal sensing</h3>
+        <ul class="chips">
+          <li>Time-series signal processing</li><li>Facial video</li><li>Speech &amp; voice prosody</li><li>Eye tracking &amp; VR</li>
+          <li>Motion capture</li><li>ECG, EDA, respiration (BIOPAC)</li><li>rPPG</li><li>Passive sensing</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Research</h3>
+        <ul class="chips">
+          <li>Human-subjects study design</li><li>Stress induction (TSST, Stroop)</li><li>Clinical collaborations</li><li>Human vs. AI evaluation</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Engineering</h3>
+        <ul class="chips">
+          <li>Python</li><li>JavaScript / React</li><li>R</li><li>SQL</li><li>Linux</li><li>HPC / SLURM</li><li>Git</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Robotics coursework</h3>
+        <ul class="chips">
+          <li>IMU sensors</li><li>DC motors &amp; encoders</li><li>PID control</li><li>Catheter robotics</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <ul class="chips">
+          <li>German (native)</li><li>English (fluent)</li><li>Spanish (B1)</li><li>French (A2)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="awards">
+      <h2>Awards</h2>
+      <ul class="awards">
+        <li><span class="yr">2025</span><span>One of three NYU nominees, university-wide, for the Apple Scholars in AI/ML PhD Fellowship</span></li>
+        <li><span class="yr">2025</span><span>ISPNE Early Career Scholar Award</span></li>
+        <li><span class="yr">2024</span><span>Best Poster Prize, Psychology &amp; Brain Conference (400+ submissions)</span></li>
+        <li><span class="yr">2023</span><span>Top 10 Finalist, ZEISS Women Award Digital &amp; IT</span></li>
+        <li><span class="yr">2023</span><span>DAAD IFI Scholarship</span></li>
       </ul>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
-      <ul class="contact">
-        <li>Email: <a href="mailto:muellv01@nyu.edu">muellv01@nyu.edu</a></li>
-        <li>LinkedIn: <span class="todo">coming soon</span></li>
-      </ul>
+      <div class="contact-box">
+        <p>I'm happy to talk about research, collaborations and opportunities.</p>
+        <div class="links">
+          <a class="btn primary" href="mailto:muellv01@nyu.edu">muellv01@nyu.edu</a>
+          <a class="btn" href="https://www.linkedin.com/in/victoria-Mueller-114929235/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <footer>© 2026 Victoria Mueller</footer>
-  </div>
+  <footer>© 2026 Victoria Mueller · New York, NY</footer>
 </body>
 </html>
